@@ -52,8 +52,14 @@
   "expressionLanguage": "VisualBasic",
   "entryPoints": [
     {
+      "filePath": "Login With Secure Credentials.xaml",
+      "uniqueId": "eb6e60af-c73b-43ce-95fb-42f0a000a746",
+      "input": [],
+      "output": []
+    },
+    {
       "filePath": "Main.xaml",
-      "uniqueId": "248e00da-a79f-4aed-8c83-ee49e93030ca",
+      "uniqueId": "4bfbc644-f128-4ea5-b83e-2221c6f21f7f",
       "input": [],
       "output": []
     }
