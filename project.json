@@ -1,7 +1,7 @@
 {
-  "name": "Week_5_Independent_Project",
+  "name": "Week_6_Independent_Project",
   "projectId": "f091f6c5-77f8-442f-8f12-8f677f484624",
-  "description": "Blank Process",
+  "description": "The week 6 independent project covers logging, exceptions, and error handling",
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.Credentials.Activities": "[2.0.0]",

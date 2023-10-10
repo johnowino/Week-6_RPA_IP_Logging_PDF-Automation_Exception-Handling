@@ -1,0 +1,13 @@
+It is important to note that over-logging can increase the load on Orchestrator, slow your process down and make it hard to diagnose an issue because of the sheer volume of log entries. 
+
+The solution is to define the right log messages in strategic points in your project. The Best Practices below cover some healthy uses for identifying events that could lead to issues. 
+
+Log message activities should ideally be used:
+
+* at the beginning and the end of every workflow (Log level = Information).
+* each time an exception is caught in a Catch block (Log level = Error).
+* each time a Business Rule Exception is thrown (Log Level = Error).
+* when data is read from external sources, for example, log a message at Information level when an Excel file is read (Log Level = Information).
+* in Parallel or Pick activities, log messages on every branch, in order to trace the branch is taken (Log Level = Information).
+* in If/Flowchart Decision/Switch/Flow Switch activities (however, since processes might have a lot of these activities, we can decrease the Log Level from Information to Trace, so we don't have a lot of these logs in the database).
+
