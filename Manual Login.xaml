@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Manual_Login" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="674,2814" sap2010:WorkflowViewState.IdRef="Manual_Login_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Manual_Login" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="588,3006" sap2010:WorkflowViewState.IdRef="Manual_Login_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -36,6 +36,9 @@
       <x:String>UiPath.UIAutomationNext.Models.CV</x:String>
       <x:String>System.Security</x:String>
       <x:String>System.ComponentModel</x:String>
+      <x:String>System.Activities.Runtime.Collections</x:String>
+      <x:String>ClosedXML.Excel.CalcEngine.Exceptions</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -95,9 +98,13 @@
       <AssemblyReference>WindowsBase</AssemblyReference>
       <AssemblyReference>Microsoft.Win32.Primitives</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>netstandard</AssemblyReference>
+      <AssemblyReference>ClosedXML</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Forms</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Core</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Manual_Login" sap:VirtualizedContainerService.HintSize="546,2749" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="This workflow allows the user to manually enter the user name (email) and password" DisplayName="Manual_Login" sap:VirtualizedContainerService.HintSize="546,4270" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="Email" />
       <Variable x:TypeArguments="x:String" Name="Password" />
@@ -105,21 +112,107 @@
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:MessageBox AutoCloseAfter="00:00:00" Buttons="{x:Null}" Caption="{x:Null}" ChosenButton="{x:Null}" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="484,85" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;You will need to provide your login credentials to access the site&quot;]" TopMost="{x:Null}" />
-    <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="484,239" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Label="Email Address" Title="Please enter your email address">
+    <ui:ReportStatus sap2010:Annotation.AnnotationText="Reporting status of user entered login details" DisplayName="Report Status User Entered Login" sap:VirtualizedContainerService.HintSize="484,121" sap2010:WorkflowViewState.IdRef="ReportStatus_1" StatusText="[&quot;Reporting status of user entered login process&quot;]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:ReportStatus>
+    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="484,85" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;You will need to provide your login credentials to access the site&quot;]" />
+    <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" sap2010:Annotation.AnnotationText="Input dialog box to capture user email address" DisplayName="Input Dialog - Email Address" sap:VirtualizedContainerService.HintSize="484,270" sap2010:WorkflowViewState.IdRef="InputDialog_3" IsPassword="False" Label="Email Address" Title="Please enter your email address">
       <ui:InputDialog.Result>
         <OutArgument x:TypeArguments="x:String">[Email]</OutArgument>
       </ui:InputDialog.Result>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
     </ui:InputDialog>
-    <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="484,239" sap2010:WorkflowViewState.IdRef="InputDialog_2" IsPassword="True" Label="Password" Title="Please enter your password">
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="484,588" sap2010:WorkflowViewState.IdRef="TryCatch_3">
+      <TryCatch.Try>
+        <If Condition="[Email=&quot;&quot;]" sap:VirtualizedContainerService.HintSize="410,360" sap2010:WorkflowViewState.IdRef="If_4">
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,178" sap2010:WorkflowViewState.IdRef="Sequence_9">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <TerminateWorkflow DisplayName="Terminate Workflow" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="TerminateWorkflow_5" Reason="The email (username) must be provided" />
+            </Sequence>
+          </If.Then>
+          <If.Else>
+            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_10" />
+          </If.Else>
+        </If>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="WorkflowTerminatedException" sap:VirtualizedContainerService.HintSize="414,21" sap2010:WorkflowViewState.IdRef="Catch`1_3">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="WorkflowTerminatedException">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="WorkflowTerminatedException" Name="exception" />
+            </ActivityAction.Argument>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+    <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" sap2010:Annotation.AnnotationText="Input dialog box to capture user password as secured text" DisplayName="Input Dialog - Password" sap:VirtualizedContainerService.HintSize="484,281" sap2010:WorkflowViewState.IdRef="InputDialog_2" IsPassword="True" Label="Password" Title="Please enter your password">
       <ui:InputDialog.Result>
         <OutArgument x:TypeArguments="x:String">[Password]</OutArgument>
       </ui:InputDialog.Result>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
     </ui:InputDialog>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="484,141" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="[UiPath.Core.Activities.LogLevel.Info]" Message="[Email]" />
-    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="{x:Null}" ConnectionId="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Use Browser Edge: ACME System 1 - Log In" sap:VirtualizedContainerService.HintSize="484,1774" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InUiElement="{x:Null}" InteractionMode="DebuggerApi" IsIncognito="{x:Null}" OpenMode="{x:Null}" OutUiElement="{x:Null}" ScopeGuid="a97a429e-290d-4e2e-a698-95dbadc3da17" Timeout="{x:Null}" UserDataFolderMode="{x:Null}" UserDataFolderPath="{x:Null}" Version="V2" WebDriverMode="{x:Null}">
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="484,588" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+      <TryCatch.Try>
+        <If Condition="[Password=&quot;&quot;]" sap:VirtualizedContainerService.HintSize="410,360" sap2010:WorkflowViewState.IdRef="If_3">
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="376,178" sap2010:WorkflowViewState.IdRef="Sequence_7">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <TerminateWorkflow DisplayName="Terminate Workflow" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="TerminateWorkflow_4" Reason="The password must be provided" />
+            </Sequence>
+          </If.Then>
+          <If.Else>
+            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_8" />
+          </If.Else>
+        </If>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="WorkflowTerminatedException" sap:VirtualizedContainerService.HintSize="414,21" sap2010:WorkflowViewState.IdRef="Catch`1_4">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="WorkflowTerminatedException">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="WorkflowTerminatedException" Name="exception" />
+            </ActivityAction.Argument>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Browser Edge: ACME System 1 - Log In" sap:VirtualizedContainerService.HintSize="484,1774" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InteractionMode="DebuggerApi" ScopeGuid="a97a429e-290d-4e2e-a698-95dbadc3da17" Version="V2">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
@@ -131,7 +224,7 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <uix:NTypeInto ActivateBefore="True" AlterIfDisabled="{x:Null}" ClickBeforeMode="Single" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DeselectAfter="{x:Null}" DisplayName="Type Into 'Email'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="388,218" sap2010:WorkflowViewState.IdRef="NTypeInto_1" InScope="{x:Null}" InUiElement="{x:Null}" OutUiElement="{x:Null}" ScopeIdentifier="a97a429e-290d-4e2e-a698-95dbadc3da17" SecureText="{x:Null}" Text="[Email]" Timeout="{x:Null}" Version="V3">
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Email'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="388,218" sap2010:WorkflowViewState.IdRef="NTypeInto_1" ScopeIdentifier="a97a429e-290d-4e2e-a698-95dbadc3da17" Text="[Email]" Version="V3">
               <uix:NTypeInto.Target>
                 <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/login" CvElementArea="127, 420, 488, 39" CvType="InputBox" DesignTimeRectangle="128, 422, 485, 34" DesignTimeScaleFactor="1" ElementType="InputBox" FriendlyName="'INPUT email'" FullSelectorArgument="&lt;webctrl id='email' tag='INPUT' /&gt;" FuzzySelectorArgument="&lt;webctrl id='email' tag='INPUT' type='email' class='form-control ' aaname='Email:' /&gt;" Guid="2ab49b31-53ff-4c10-9ad3-ba42c5d084f6" InformativeScreenshot="1d8232c6e789269f0dbbdf95fc112e75.png" IsResponsive="True" ScopeSelectorArgument="&lt;html app='msedge.exe' title='ACME System 1 - Log In' /&gt;" SearchSteps="FuzzySelector, CV" Version="V2" Visibility="Interactive">
                   <uix:TargetAnchorable.Anchors>
@@ -142,7 +235,7 @@
                 </uix:TargetAnchorable>
               </uix:NTypeInto.Target>
             </uix:NTypeInto>
-            <uix:NTypeInto ActivateBefore="True" AlterIfDisabled="{x:Null}" ClickBeforeMode="Single" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DeselectAfter="{x:Null}" DisplayName="Type Into 'Password'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="388,218" sap2010:WorkflowViewState.IdRef="NTypeInto_2" InScope="{x:Null}" InUiElement="{x:Null}" OutUiElement="{x:Null}" ScopeIdentifier="a97a429e-290d-4e2e-a698-95dbadc3da17" SecureText="{x:Null}" Text="[Password]" Timeout="{x:Null}" Version="V3">
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Password'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="388,218" sap2010:WorkflowViewState.IdRef="NTypeInto_2" ScopeIdentifier="a97a429e-290d-4e2e-a698-95dbadc3da17" Text="[Password]" Version="V3">
               <uix:NTypeInto.Target>
                 <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/login" CvElementArea="127, 494, 487, 37" CvType="InputBox" DesignTimeRectangle="128, 496, 485, 34" DesignTimeScaleFactor="1" ElementType="InputBoxPassword" FriendlyName="'INPUT password'" FullSelectorArgument="&lt;webctrl id='password' tag='INPUT' /&gt;" FuzzySelectorArgument="&lt;webctrl id='password' tag='INPUT' type='password' class='form-control ' aaname='Password:' /&gt;" Guid="09975a91-7d96-4ed2-bcdd-0c15f5b744aa" InformativeScreenshot="814e15c6709d5d41614b45a5e4e0e83b.png" ScopeSelectorArgument="&lt;html app='msedge.exe' title='ACME System 1 - Log In' /&gt;" SearchSteps="FuzzySelector, CV" Version="V2" Visibility="Interactive">
                   <uix:TargetAnchorable.Anchors>
@@ -153,7 +246,7 @@
                 </uix:TargetAnchorable>
               </uix:NTypeInto.Target>
             </uix:NTypeInto>
-            <uix:NClick ActivateBefore="True" AlterIfDisabled="{x:Null}" ClickType="Single" ContinueOnError="{x:Null}" CursorMotionType="{x:Null}" DelayAfter="{x:Null}" DelayBefore="2" DisplayName="Click 'Login'" sap:VirtualizedContainerService.HintSize="388,157" sap2010:WorkflowViewState.IdRef="NClick_6" InScope="{x:Null}" InUiElement="{x:Null}" KeyModifiers="None" MouseButton="Left" OutUiElement="{x:Null}" ScopeIdentifier="a97a429e-290d-4e2e-a698-95dbadc3da17" Timeout="{x:Null}" Version="V3">
+            <uix:NClick ActivateBefore="True" ClickType="Single" DelayBefore="2" DisplayName="Click 'Login'" sap:VirtualizedContainerService.HintSize="388,157" sap2010:WorkflowViewState.IdRef="NClick_6" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="a97a429e-290d-4e2e-a698-95dbadc3da17" Version="V3">
               <uix:NClick.Target>
                 <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/login" CvElementArea="126, 584, 62, 37" CvTextArea="140, 596, 36, 16" CvTextArgument="Login" CvType="Button" DesignTimeRectangle="128, 586, 60, 34" DesignTimeScaleFactor="1" ElementType="Button" FriendlyName="'Login'" FullSelectorArgument="&lt;webctrl tag='BUTTON' type='submit' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='BUTTON' type='submit' class='btn btn-primary' aaname='                             Login                         ' check:innerText='Login' /&gt;" Guid="c9d9e292-56bb-4812-b4d6-4185ec06547c" InformativeScreenshot="9683e3ca225ace4744030a1865285e75.png" ScopeSelectorArgument="&lt;html app='msedge.exe' title='ACME System 1 - Log In' /&gt;" SearchSteps="FuzzySelector, CV" Version="V2" Visibility="Interactive">
                   <uix:TargetAnchorable.Anchors>
@@ -164,7 +257,7 @@
                 </uix:TargetAnchorable>
               </uix:NClick.Target>
             </uix:NClick>
-            <uix:NHover ContinueOnError="{x:Null}" CursorMotionType="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Hover 'User options'" sap:VirtualizedContainerService.HintSize="388,157" HoverTime="5" sap2010:WorkflowViewState.IdRef="NHover_2" InScope="{x:Null}" InUiElement="{x:Null}" OutUiElement="{x:Null}" ScopeIdentifier="a97a429e-290d-4e2e-a698-95dbadc3da17" Timeout="{x:Null}" Version="V3">
+            <uix:NHover DisplayName="Hover 'User options'" sap:VirtualizedContainerService.HintSize="388,157" HoverTime="5" sap2010:WorkflowViewState.IdRef="NHover_2" ScopeIdentifier="a97a429e-290d-4e2e-a698-95dbadc3da17" Version="V3">
               <uix:NHover.Target>
                 <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/" CvElementArea="161, 391, 204, 50" CvTextArea="223, 407, 102, 20" CvTextArgument="User options" CvType="Button" DesignTimeRectangle="164, 393, 200, 46" DesignTimeScaleFactor="1" ElementType="Button" FriendlyName="'User options'" FullSelectorArgument="&lt;webctrl parentid='dashmenu' tag='BUTTON' /&gt;" FuzzySelectorArgument="&lt;webctrl parentid='dashmenu' tag='BUTTON' type='button' class='btn btn-default btn-lg dropdown-toggle' aaname='                  User options' check:innerText='User options' /&gt;" Guid="c13c1ae8-033c-4b09-aed2-4537b1dd88a9" InformativeScreenshot="37397a0839977d20298c6c50804c3402.png" ScopeSelectorArgument="&lt;html app='msedge.exe' title='ACME System 1 - Dashboard' /&gt;" SearchSteps="FuzzySelector, CV" Version="V2" Visibility="Interactive">
                   <uix:TargetAnchorable.Anchors>
@@ -175,7 +268,7 @@
                 </uix:TargetAnchorable>
               </uix:NHover.Target>
             </uix:NHover>
-            <uix:NClick ActivateBefore="True" AlterIfDisabled="{x:Null}" ClickType="Single" ContinueOnError="{x:Null}" CursorMotionType="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Click 'Download Client'" sap:VirtualizedContainerService.HintSize="388,157" sap2010:WorkflowViewState.IdRef="NClick_4" InScope="{x:Null}" InUiElement="{x:Null}" InteractionMode="Simulate" KeyModifiers="None" MouseButton="Left" OutUiElement="{x:Null}" ScopeIdentifier="a97a429e-290d-4e2e-a698-95dbadc3da17" Timeout="{x:Null}" Version="V3">
+            <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Download Client'" sap:VirtualizedContainerService.HintSize="388,157" sap2010:WorkflowViewState.IdRef="NClick_4" InteractionMode="Simulate" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="a97a429e-290d-4e2e-a698-95dbadc3da17" Version="V3">
               <uix:NClick.Target>
                 <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/" CvTextArea="404, 407, 184, 16" CvTextArgument="Download Client and Support" CvType="Text" DesignTimeRectangle="404, 407, 184, 16" DesignTimeScaleFactor="1" ElementType="Text" FriendlyName="'Download Client'" Guid="f995d6e4-fe08-417f-bc46-b5be6d86b797" InformativeScreenshot="518654a6979c90351926d2e3337fb792.png" ScopeSelectorArgument="&lt;html app='msedge.exe' title='ACME System 1 - Dashboard' /&gt;" SearchSteps="CV" TargetType="ComputerVisionBased" Version="V2" Visibility="Interactive">
                   <uix:TargetAnchorable.Anchors>
@@ -186,7 +279,7 @@
                 </uix:TargetAnchorable>
               </uix:NClick.Target>
             </uix:NClick>
-            <uix:NClick ActivateBefore="True" AlterIfDisabled="{x:Null}" ClickType="Single" ContinueOnError="{x:Null}" CursorMotionType="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Click 'Download'" sap:VirtualizedContainerService.HintSize="388,157" sap2010:WorkflowViewState.IdRef="NClick_5" InScope="{x:Null}" InUiElement="{x:Null}" KeyModifiers="None" MouseButton="Left" OutUiElement="{x:Null}" ScopeIdentifier="a97a429e-290d-4e2e-a698-95dbadc3da17" Timeout="{x:Null}" Version="V3">
+            <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Download'" sap:VirtualizedContainerService.HintSize="388,157" sap2010:WorkflowViewState.IdRef="NClick_5" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="a97a429e-290d-4e2e-a698-95dbadc3da17" Version="V3">
               <uix:NClick.Target>
                 <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/download-client" CvElementArea="461, 386, 136, 51" CvTextArea="487, 403, 80, 15" CvTextArgument="Download" CvType="Button" DesignTimeRectangle="464, 389, 129, 47" DesignTimeScaleFactor="1" ElementType="Text" FriendlyName="'Download'" FullSelectorArgument="&lt;webctrl class='btn' parentid='pagetext' tag='A' /&gt;" FuzzySelectorArgument="&lt;webctrl class='btn' parentid='pagetext' tag='A' type='' aaname='Download' check:innerText='Download' /&gt;" Guid="51d8deea-5a9b-4de3-beb1-f110d65e6db1" InformativeScreenshot="e273712912456f3e173d4de75955dbe6.png" ScopeSelectorArgument="&lt;html app='msedge.exe' title='ACME System 1 - Download Client and Support' /&gt;" SearchSteps="FuzzySelector, CV" Version="V2" Visibility="Interactive">
                   <uix:TargetAnchorable.Anchors>
@@ -197,7 +290,7 @@
                 </uix:TargetAnchorable>
               </uix:NClick.Target>
             </uix:NClick>
-            <ui:SelectFile DisplayName="Browse For File" Filter="All files (*.*)|*.*" sap:VirtualizedContainerService.HintSize="388,138" sap2010:WorkflowViewState.IdRef="SelectFile_2" SelectedFile="{x:Null}" />
+            <ui:SelectFile SelectedFile="{x:Null}" DisplayName="Browse For File" Filter="All files (*.*)|*.*" sap:VirtualizedContainerService.HintSize="388,138" sap2010:WorkflowViewState.IdRef="SelectFile_2" />
           </Sequence>
         </ActivityAction>
       </uix:NApplicationCard.Body>
