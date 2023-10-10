@@ -92,14 +92,14 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:ReportStatus sap2010:Annotation.AnnotationText="Reporting status of get secure credentials" DisplayName="Report Status of Get Credentials" sap:VirtualizedContainerService.HintSize="410,121" sap2010:WorkflowViewState.IdRef="ReportStatus_1" StatusText="[&quot;Getting Secure Credentials&quot;]">
+    <ui:ReportStatus sap2010:Annotation.AnnotationText="Reporting status of get secure credentials" DisplayName="Report Start of Get Credentials" sap:VirtualizedContainerService.HintSize="410,121" sap2010:WorkflowViewState.IdRef="ReportStatus_1" StatusText="[&quot;Getting Secure Credentials&quot;]">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ReportStatus>
-    <p:GetSecureCredential sap2010:Annotation.AnnotationText="Get secure credentials from windows credentials manager" CredentialType="Generic" DisplayName="Get Secure Credentials" sap:VirtualizedContainerService.HintSize="410,122" sap2010:WorkflowViewState.IdRef="GetSecureCredential_1" Password="[SecurePass]" PersistanceType="Enterprise" Result="[Result]" Target="ACME_System1" Username="[User]">
+    <p:GetSecureCredential sap2010:Annotation.AnnotationText="Get secure credentials from windows credentials manager" CredentialType="Generic" DisplayName="Get Secure Credentials" sap:VirtualizedContainerService.HintSize="410,122" sap2010:WorkflowViewState.IdRef="GetSecureCredential_1" Password="[SecurePass]" PersistanceType="Enterprise" Result="[Result]" Target="ACME_System" Username="[User]">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -107,7 +107,7 @@
       </sap:WorkflowViewStateService.ViewState>
     </p:GetSecureCredential>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="410,141" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="[UiPath.Core.Activities.LogLevel.Info]" Message="[&quot;Get Secure Credentials have been retrieved? &quot;+Result.ToString]" />
-    <If sap2010:Annotation.AnnotationText="Checks if the ACME windows credentials have been successfully retrieved from the windows credentials manager" Condition="[Result=True]" sap:VirtualizedContainerService.HintSize="410,710" sap2010:WorkflowViewState.IdRef="If_1">
+    <If sap2010:Annotation.AnnotationText="Checks if the ACME windows credentials have been successfully retrieved from the windows credentials manager" Condition="[Result=True]" DisplayName="If Password exist in windows credential" sap:VirtualizedContainerService.HintSize="410,710" sap2010:WorkflowViewState.IdRef="If_1">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
